@@ -8,17 +8,23 @@ namespace lab_3 {
         public GraphForm() {
             InitializeComponent();
             GreetingWorker();
+           
         }
 
-        private void GraphForm_Load(object sender, System.EventArgs e) {
-
+        private void GraphForm_Load(object sender, EventArgs e) {
+            
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
-            //bool isAgain = FileWorker.ReadStartMessageFile("check_box_info.txt");
-            bool isAgain = true;
-            AboutForm aboutForm = new AboutForm(isAgain);
+            AboutForm aboutForm = new AboutForm(true);
             aboutForm.ShowDialog();
+        }
+
+        private void GraphForm_FormClosing(object sender, FormClosingEventArgs e) {
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result = MessageBox.Show("Are you sure to want to exit?",
+                "Exit", buttons);
+            e.Cancel = result != DialogResult.Yes;
         }
     }
 }

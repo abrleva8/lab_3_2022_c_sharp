@@ -9,6 +9,7 @@ namespace lab_3 {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new GraphForm());
+            Application.Exit();
         }
     }
 }
