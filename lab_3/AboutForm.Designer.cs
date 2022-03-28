@@ -1,4 +1,6 @@
-﻿namespace lab_3 {
+﻿using System.IO;
+
+namespace lab_3 {
     partial class AboutForm {
         /// <summary>
         /// Required designer variable.
@@ -16,6 +18,7 @@
             base.Dispose(disposing);
         }
 
+
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -31,6 +34,7 @@
             // 
             // infoTextLabel_1
             // 
+            this.infoTextLabel_1.AccessibleName = "infoTextLabel_1";
             this.infoTextLabel_1.AutoSize = true;
             this.infoTextLabel_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.infoTextLabel_1.Location = new System.Drawing.Point(43, 20);
@@ -38,7 +42,6 @@
             this.infoTextLabel_1.Size = new System.Drawing.Size(298, 20);
             this.infoTextLabel_1.TabIndex = 0;
             this.infoTextLabel_1.Text = "This is the first task of the third laboratory";
-            this.infoTextLabel_1.Click += new System.EventHandler(this.label1_Click);
             // 
             // infoTextLabel_2
             // 
@@ -49,7 +52,6 @@
             this.infoTextLabel_2.Size = new System.Drawing.Size(347, 20);
             this.infoTextLabel_2.TabIndex = 1;
             this.infoTextLabel_2.Text = "Author Levon Abramyan, 2nd course, 404 group";
-            this.infoTextLabel_2.Click += new System.EventHandler(this.label1_Click_1);
             // 
             // infoTextLabel_3
             // 
@@ -62,7 +64,6 @@
             this.infoTextLabel_3.TabIndex = 2;
             this.infoTextLabel_3.Text = "The program draws the Witch of Agnesi";
             this.infoTextLabel_3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.infoTextLabel_3.Click += new System.EventHandler(this.label2_Click);
             // 
             // checkBoxShowAgain
             // 
@@ -73,6 +74,7 @@
             this.checkBoxShowAgain.TabIndex = 3;
             this.checkBoxShowAgain.Text = "Don\'t show again";
             this.checkBoxShowAgain.UseVisualStyleBackColor = true;
+            this.checkBoxShowAgain.CheckedChanged += new System.EventHandler(this.checkBoxShowAgain_CheckedChanged);
             // 
             // AboutForm
             // 
@@ -89,6 +91,8 @@
             this.Name = "AboutForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Information";
+            this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AboutForm_FormClosing);
             this.Load += new System.EventHandler(this.AboutForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
