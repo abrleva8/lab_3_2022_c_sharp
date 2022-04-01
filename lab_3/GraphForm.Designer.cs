@@ -40,6 +40,7 @@ namespace lab_3 {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GraphForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.readDataFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveInputDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveOutputDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveDataToExcellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,7 +58,6 @@ namespace lab_3 {
             this.button_draw_graph = new System.Windows.Forms.Button();
             this.button_clear = new System.Windows.Forms.Button();
             this.button_show_table = new System.Windows.Forms.Button();
-            this.readDataFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartGraph)).BeginInit();
@@ -86,11 +86,20 @@ namespace lab_3 {
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // readDataFromFileToolStripMenuItem
+            // 
+            this.readDataFromFileToolStripMenuItem.Name = "readDataFromFileToolStripMenuItem";
+            this.readDataFromFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.readDataFromFileToolStripMenuItem.Text = "Read data from file";
+            this.readDataFromFileToolStripMenuItem.Click += new System.EventHandler(this.readDataFromFileToolStripMenuItem_Click);
+            // 
             // saveInputDataToolStripMenuItem
             // 
+            this.saveInputDataToolStripMenuItem.Enabled = false;
             this.saveInputDataToolStripMenuItem.Name = "saveInputDataToolStripMenuItem";
             this.saveInputDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveInputDataToolStripMenuItem.Text = "Save input data";
+            this.saveInputDataToolStripMenuItem.Click += new System.EventHandler(this.saveInputDataToolStripMenuItem_Click);
             // 
             // saveOutputDataToolStripMenuItem
             // 
@@ -250,13 +259,6 @@ namespace lab_3 {
             this.button_show_table.TabIndex = 13;
             this.button_show_table.Text = "Show Table";
             this.button_show_table.UseVisualStyleBackColor = true;
-            // 
-            // readDataFromFileToolStripMenuItem
-            // 
-            this.readDataFromFileToolStripMenuItem.Name = "readDataFromFileToolStripMenuItem";
-            this.readDataFromFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.readDataFromFileToolStripMenuItem.Text = "Read data from file";
-            this.readDataFromFileToolStripMenuItem.Click += new System.EventHandler(this.readDataFromFileToolStripMenuItem_Click);
             // 
             // pictureBox1
             // 

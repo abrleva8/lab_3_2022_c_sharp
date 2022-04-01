@@ -47,18 +47,24 @@ namespace lab_3 {
             if ((CheckNumbers().Count != 4)) return;
             this.chartGraph.Series[0].Points.Clear();
             this.chartGraph.Series[1].Points.Clear();
-            double a = Double.Parse(textBoxA.Text);
-            double step = Double.Parse(textBoxStep.Text);
-            Interval inter = new Interval(Double.Parse(textBoxLeftBorder.Text),
-                Double.Parse(textBoxRightBorder.Text));
+            double a = double.Parse(textBoxA.Text);
+            double step = double.Parse(textBoxStep.Text);
+            
+            Interval inter = new Interval(double.Parse(textBoxLeftBorder.Text),
+                double.Parse(textBoxRightBorder.Text));
+            int leftSide = (int) (inter.LeftBorder / step);
+            int rightSide = (int) (inter.RightBorder / step);
             WitchOfAgnesi witch = new WitchOfAgnesi(a, inter, step);
-            for (double x = inter.LeftBorder; x < inter.RightBorder; x += step) {
+            for (int i = leftSide; i <= rightSide; i++) {
+                double x = step * i;
                 this.chartGraph.Series[0].Points.AddXY(x, witch.Calculate(x));
             }
 
             if (witch.IsSpecialSituation()) {
                 this.chartGraph.Series[1].Points.AddXY(0.000001, 0);
             }
+
+            this.saveInputDataToolStripMenuItem.Enabled = true;
         }
 
         private List<double> CheckNumbers() {
@@ -76,9 +82,10 @@ namespace lab_3 {
         }
 
         private void button_clear_Click(object sender, EventArgs e) {
-            foreach (var v in this.chartGraph.Series) {
-                v.Points.Clear();
+            foreach (var series in this.chartGraph.Series) {
+                series.Points.Clear();
             }
+            this.saveInputDataToolStripMenuItem.Enabled = false;
         }
 
         private void readDataFromFileToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -86,8 +93,9 @@ namespace lab_3 {
                 InitialDirectory = @"D:\Documents\C#\lab_3\lab_3\lab_3\bin\Debug"
             };
             if (openFileDialog.ShowDialog() != DialogResult.OK) return;
-            var sr = new StreamReader(openFileDialog.FileName);
-            SetData(sr);
+            using (var sr = new StreamReader(openFileDialog.FileName)) {
+                SetData(sr);
+            }
         }
 
         private void SetData(StreamReader sr) {
@@ -95,9 +103,8 @@ namespace lab_3 {
             for (int i = 0; i < 4; i++) {
                 try {
                     data.Add(double.Parse(sr.ReadLine() ?? string.Empty));
-                }
-                catch (Exception) {
-                    MessageBox.Show("File has incorrect data!");
+                } catch (Exception) {
+                    MessageBox.Show("File has incorrect data!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
@@ -105,6 +112,21 @@ namespace lab_3 {
             textBoxLeftBorder.Text = data[1].ToString(CultureInfo.InvariantCulture);
             textBoxRightBorder.Text = data[2].ToString(CultureInfo.InvariantCulture);
             textBoxStep.Text = data[3].ToString(CultureInfo.InvariantCulture);
+        }
+
+        private void saveInputDataToolStripMenuItem_Click(object sender, EventArgs e) {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+                using (var sr = new StreamWriter(saveFileDialog.FileName)) {
+                    sr.WriteLine(textBoxA.Text);
+                    sr.WriteLine(textBoxLeftBorder.Text);
+                    sr.WriteLine(textBoxRightBorder.Text);
+                    sr.WriteLine(textBoxStep.Text);
+                }
+                MessageBox.Show("File was saved!", "Saving!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            } else {
+                MessageBox.Show("File was not saved!", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }
