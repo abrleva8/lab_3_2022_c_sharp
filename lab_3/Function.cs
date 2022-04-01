@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms.VisualStyles;
 
 namespace lab_3 {
@@ -13,6 +14,8 @@ namespace lab_3 {
         private double A { get; set; }
         private double Step { get; set; }
         private Interval GraphInterval { get; set; }
+
+        public List<KeyValuePair<double, double>> Pairs { get; set; }
 
         public WitchOfAgnesi(double a, Interval interval, double step) {
             this.A = a;
@@ -38,6 +41,18 @@ namespace lab_3 {
 
         public bool IsSpecialSituation() {
             return A == 0 && GraphInterval.RightBorder > 0 && GraphInterval.LeftBorder < 0;
+        }
+
+        public void SetValues() {
+            List < KeyValuePair<double, double> > pairs = new List<KeyValuePair<double, double>>();
+            int leftSide = (int) (GraphInterval.LeftBorder / Step);
+            int rightSide = (int) (GraphInterval.RightBorder / Step);
+            for (int i = leftSide; i <= rightSide; i++) {
+                double x = Step * i;
+                KeyValuePair<double, double> pair = new KeyValuePair<double, double>(x, Calculate(x));
+                pairs.Add(pair);
+            }
+            this.Pairs = pairs;
         }
     }
 }

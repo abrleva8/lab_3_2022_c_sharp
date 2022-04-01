@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 
 namespace lab_3 {
     public partial class GraphForm : Form {
+        private WitchOfAgnesi witch;
 
         public GraphForm() {
             InitializeComponent();
@@ -54,10 +56,10 @@ namespace lab_3 {
                 double.Parse(textBoxRightBorder.Text));
             int leftSide = (int) (inter.LeftBorder / step);
             int rightSide = (int) (inter.RightBorder / step);
-            WitchOfAgnesi witch = new WitchOfAgnesi(a, inter, step);
-            for (int i = leftSide; i <= rightSide; i++) {
-                double x = step * i;
-                this.chartGraph.Series[0].Points.AddXY(x, witch.Calculate(x));
+            witch = new WitchOfAgnesi(a, inter, step);
+            witch.SetValues();
+            foreach (var pair in witch.Pairs) {
+                this.chartGraph.Series[0].Points.AddXY(pair.Key, pair.Value);
             }
 
             if (witch.IsSpecialSituation()) {
@@ -65,6 +67,8 @@ namespace lab_3 {
             }
 
             this.saveInputDataToolStripMenuItem.Enabled = true;
+            this.button_show_table.Enabled = true;
+            dataGridView.DataSource = null;
         }
 
         private List<double> CheckNumbers() {
@@ -86,13 +90,17 @@ namespace lab_3 {
                 series.Points.Clear();
             }
             this.saveInputDataToolStripMenuItem.Enabled = false;
+            this.button_show_table.Enabled = false;
         }
 
         private void readDataFromFileToolStripMenuItem_Click(object sender, EventArgs e) {
             OpenFileDialog openFileDialog = new OpenFileDialog() {
                 InitialDirectory = @"D:\Documents\C#\lab_3\lab_3\lab_3\bin\Debug"
             };
-            if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+            if (openFileDialog.ShowDialog() != DialogResult.OK) {
+                MessageBox.Show("File was not read!", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            };
             using (var sr = new StreamReader(openFileDialog.FileName)) {
                 SetData(sr);
             }
@@ -104,7 +112,7 @@ namespace lab_3 {
                 try {
                     data.Add(double.Parse(sr.ReadLine() ?? string.Empty));
                 } catch (Exception) {
-                    MessageBox.Show("File has incorrect data!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("The file has incorrect data!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
@@ -112,6 +120,7 @@ namespace lab_3 {
             textBoxLeftBorder.Text = data[1].ToString(CultureInfo.InvariantCulture);
             textBoxRightBorder.Text = data[2].ToString(CultureInfo.InvariantCulture);
             textBoxStep.Text = data[3].ToString(CultureInfo.InvariantCulture);
+            MessageBox.Show("The file was read!", "Reading!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void saveInputDataToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -127,6 +136,20 @@ namespace lab_3 {
             } else {
                 MessageBox.Show("File was not saved!", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void button_show_table_Click(object sender, EventArgs e) {
+            DataTable dotTable = new DataTable();
+            dotTable.Columns.Add("X", typeof(double));
+            dotTable.Columns.Add("Y", typeof(double));
+            foreach (var pair in witch.Pairs) {
+                dotTable.Rows.Add(Math.Round(pair.Key, 2), Math.Round(pair.Value, 2));
+            }
+            dataGridView.DataSource = dotTable;
+        }
+
+        private void button_clear_table_Click(object sender, EventArgs e) {
+            dataGridView.DataSource = null;
         }
     }
 }
