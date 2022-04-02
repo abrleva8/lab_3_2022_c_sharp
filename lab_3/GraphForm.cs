@@ -69,6 +69,7 @@ namespace lab_3 {
             this.saveInputDataToolStripMenuItem.Enabled = true;
             this.button_show_table.Enabled = true;
             dataGridView.DataSource = null;
+            this.saveOutputDataToolStripMenuItem.Enabled = false;
         }
 
         private List<double> CheckNumbers() {
@@ -91,6 +92,8 @@ namespace lab_3 {
             }
             this.saveInputDataToolStripMenuItem.Enabled = false;
             this.button_show_table.Enabled = false;
+            dataGridView.DataSource = null;
+            this.saveOutputDataToolStripMenuItem.Enabled = false;
         }
 
         private void readDataFromFileToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -126,11 +129,11 @@ namespace lab_3 {
         private void saveInputDataToolStripMenuItem_Click(object sender, EventArgs e) {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             if (saveFileDialog.ShowDialog() == DialogResult.OK) {
-                using (var sr = new StreamWriter(saveFileDialog.FileName)) {
-                    sr.WriteLine(textBoxA.Text);
-                    sr.WriteLine(textBoxLeftBorder.Text);
-                    sr.WriteLine(textBoxRightBorder.Text);
-                    sr.WriteLine(textBoxStep.Text);
+                using (var streamWriter = new StreamWriter(saveFileDialog.FileName)) {
+                    streamWriter.WriteLine(textBoxA.Text);
+                    streamWriter.WriteLine(textBoxLeftBorder.Text);
+                    streamWriter.WriteLine(textBoxRightBorder.Text);
+                    streamWriter.WriteLine(textBoxStep.Text);
                 }
                 MessageBox.Show("File was saved!", "Saving!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             } else {
@@ -146,10 +149,26 @@ namespace lab_3 {
                 dotTable.Rows.Add(Math.Round(pair.Key, 2), Math.Round(pair.Value, 2));
             }
             dataGridView.DataSource = dotTable;
+            this.saveOutputDataToolStripMenuItem.Enabled = true;
         }
 
         private void button_clear_table_Click(object sender, EventArgs e) {
             dataGridView.DataSource = null;
+            this.saveOutputDataToolStripMenuItem.Enabled = false;
+        }
+
+        private void saveOutputDataToolStripMenuItem_Click(object sender, EventArgs e) {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+                using (var streamWriter = new StreamWriter(saveFileDialog.FileName)) {
+                    foreach (var pair in witch.Pairs) {
+                        streamWriter.WriteLine($"{Math.Round(pair.Key, 2)}  -  {Math.Round(pair.Value, 2)}");
+                    }
+                }
+                MessageBox.Show("The output data was saved!", "Saving!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            } else {
+                MessageBox.Show("The output data was not saved!", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

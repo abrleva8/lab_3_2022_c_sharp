@@ -17,7 +17,7 @@ namespace lab_3 {
 
         public static bool ReadStartMessageFile(string filename) {
             using (StreamReader file = new StreamReader(filename)) {
-                if (int.Parse(file.ReadLine()) == 1) {
+                if (int.Parse(file.ReadLine() ?? string.Empty) == 1) {
                     return true;
                 }
             }

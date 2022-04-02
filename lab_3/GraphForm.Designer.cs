@@ -34,9 +34,9 @@ namespace lab_3 {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea15 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series29 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series30 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GraphForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,7 +92,7 @@ namespace lab_3 {
             // readDataFromFileToolStripMenuItem
             // 
             this.readDataFromFileToolStripMenuItem.Name = "readDataFromFileToolStripMenuItem";
-            this.readDataFromFileToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.readDataFromFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.readDataFromFileToolStripMenuItem.Text = "Read data from file";
             this.readDataFromFileToolStripMenuItem.Click += new System.EventHandler(this.readDataFromFileToolStripMenuItem_Click);
             // 
@@ -100,7 +100,7 @@ namespace lab_3 {
             // 
             this.saveInputDataToolStripMenuItem.Enabled = false;
             this.saveInputDataToolStripMenuItem.Name = "saveInputDataToolStripMenuItem";
-            this.saveInputDataToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.saveInputDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveInputDataToolStripMenuItem.Text = "Save input data";
             this.saveInputDataToolStripMenuItem.Click += new System.EventHandler(this.saveInputDataToolStripMenuItem_Click);
             // 
@@ -108,14 +108,15 @@ namespace lab_3 {
             // 
             this.saveOutputDataToolStripMenuItem.Enabled = false;
             this.saveOutputDataToolStripMenuItem.Name = "saveOutputDataToolStripMenuItem";
-            this.saveOutputDataToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.saveOutputDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveOutputDataToolStripMenuItem.Text = "Save output data";
+            this.saveOutputDataToolStripMenuItem.Click += new System.EventHandler(this.saveOutputDataToolStripMenuItem_Click);
             // 
             // saveDataToExcellToolStripMenuItem
             // 
             this.saveDataToExcellToolStripMenuItem.Enabled = false;
             this.saveDataToExcellToolStripMenuItem.Name = "saveDataToExcellToolStripMenuItem";
-            this.saveDataToExcellToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.saveDataToExcellToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveDataToExcellToolStripMenuItem.Text = "Save data to excell";
             // 
             // helpToolStripMenuItem
@@ -135,26 +136,26 @@ namespace lab_3 {
             // 
             // chartGraph
             // 
-            chartArea15.CursorX.Interval = 0.01D;
-            chartArea15.Name = "ChartArea1";
-            this.chartGraph.ChartAreas.Add(chartArea15);
+            chartArea1.CursorX.Interval = 0.01D;
+            chartArea1.Name = "ChartArea1";
+            this.chartGraph.ChartAreas.Add(chartArea1);
             this.chartGraph.Location = new System.Drawing.Point(359, 12);
             this.chartGraph.Name = "chartGraph";
             this.chartGraph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series29.BorderWidth = 4;
-            series29.ChartArea = "ChartArea1";
-            series29.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series29.Name = "graph";
-            series30.ChartArea = "ChartArea1";
-            series30.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series30.EmptyPointStyle.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            series30.MarkerBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            series30.MarkerColor = System.Drawing.Color.White;
-            series30.MarkerSize = 10;
-            series30.Name = "pointToDelete";
-            series30.YValuesPerPoint = 2;
-            this.chartGraph.Series.Add(series29);
-            this.chartGraph.Series.Add(series30);
+            series1.BorderWidth = 4;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Name = "graph";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series2.EmptyPointStyle.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            series2.MarkerBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            series2.MarkerColor = System.Drawing.Color.White;
+            series2.MarkerSize = 10;
+            series2.Name = "pointToDelete";
+            series2.YValuesPerPoint = 2;
+            this.chartGraph.Series.Add(series1);
+            this.chartGraph.Series.Add(series2);
             this.chartGraph.Size = new System.Drawing.Size(455, 361);
             this.chartGraph.TabIndex = 1;
             this.chartGraph.Text = "chart1";
