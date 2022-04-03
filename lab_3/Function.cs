@@ -11,9 +11,9 @@ namespace lab_3 {
         private const double minStep = 0.001;
         private const double maxStep = 1.0;
 
-        private double A { get; set; }
-        private double Step { get; set; }
-        private Interval GraphInterval { get; set; }
+        public double A { get; set; }
+        public double Step { get; set; }
+        public Interval GraphInterval { get; set; }
 
         public List<KeyValuePair<double, double>> Pairs { get; set; }
 
@@ -36,6 +36,9 @@ namespace lab_3 {
         }
 
         public double Calculate(double x) {
+            if (this.A == 0 && x == 0) {
+                return Double.NaN;
+            }
             return Math.Pow(this.A, 3) / (this.A * this.A + x * x);
         }
 
