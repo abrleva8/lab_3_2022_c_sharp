@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace lab_3 {
     public class FileWorker {
@@ -16,13 +17,21 @@ namespace lab_3 {
 
 
         public static bool ReadStartMessageFile(string filename) {
+            if (!File.Exists(filename)) {
+                using (FileStream fs = File.Create(filename)) {
+                    fs.WriteByte(48);
+                }
+            }
+            int number = 0;
             using (StreamReader file = new StreamReader(filename)) {
-                if (int.Parse(file.ReadLine() ?? string.Empty) == 1) {
-                    return true;
+                try {
+                    number = int.Parse(file.ReadLine() ?? string.Empty);
+                } catch (FormatException) {
+                    return false;
                 }
             }
 
-            return false;
+            return number == 1;
         }
-     }
+    }
 }

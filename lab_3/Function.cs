@@ -24,7 +24,7 @@ namespace lab_3 {
         }
 
         private bool IsGoodA() {
-            return  maxA > this.A && this.A > minA;
+            return  minA < this.A && this.A < maxA;
         }
 
         private bool IsGoodStep() {

@@ -10,7 +10,7 @@ using OfficeOpenXml.Drawing.Chart;
 namespace lab_3 {
     public partial class GraphForm : Form {
         private WitchOfAgnesi _witch;
-        private Dictionary<string, string> dErrors = new Dictionary<string, string>() {
+        private readonly Dictionary<string, string> _dErrors = new Dictionary<string, string>() {
             ["textBoxA"] = "a",
             ["textBoxLeftBorder"] = "left border",
             ["textBoxRightBorder"] = "right border",
@@ -31,7 +31,7 @@ namespace lab_3 {
             try {
                 num = double.Parse(textBox.Text);
             } catch (Exception) {
-                throw new FormatException($"The {dErrors[textBox.Name]} should be double!");
+                throw new FormatException($"The {_dErrors[textBox.Name]} should be double!");
             }
 
             return num;
