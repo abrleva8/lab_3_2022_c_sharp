@@ -10,6 +10,12 @@ using OfficeOpenXml.Drawing.Chart;
 namespace lab_3 {
     public partial class GraphForm : Form {
         private WitchOfAgnesi _witch;
+        private Dictionary<string, string> dErrors = new Dictionary<string, string>() {
+            ["textBoxA"] = "a",
+            ["textBoxLeftBorder"] = "left border",
+            ["textBoxRightBorder"] = "right border",
+            ["textBoxStep"] = "step",
+        };
 
         public GraphForm() {
             InitializeComponent();
@@ -25,7 +31,7 @@ namespace lab_3 {
             try {
                 num = double.Parse(textBox.Text);
             } catch (Exception) {
-                throw new FormatException($"The {textBox.Name}  should be double!");
+                throw new FormatException($"The {dErrors[textBox.Name]} should be double!");
             }
 
             return num;
@@ -64,10 +70,6 @@ namespace lab_3 {
             foreach (var pair in _witch.Pairs) {
                 this.chartGraph.Series[0].Points.AddXY(pair.Key, pair.Value);
             }
-
-            // if (_witch.IsSpecialSituation()) {
-            //     this.chartGraph.Series[1].Points.AddXY(0.000001, 0);
-            // }
 
             this.saveInputDataToolStripMenuItem.Enabled = true;
             this.button_show_table.Enabled = true;
@@ -217,12 +219,11 @@ namespace lab_3 {
             }
 
             ExcelChart chartGraph = sheet.Drawings.AddChart("Witch of Agnesi", eChartType.Line);
-            chartGraph.Legend.Position = eLegendPosition.Right;
             chartGraph.Title.Text = "Witch of Agnesi";
-            chartGraph.Legend.Add();
+            chartGraph.Legend.Remove();
             chartGraph.SetPosition(10, 0, 10, 0);
-            chartGraph.Series.Add(sheet.Cells["E2:E" + _witch.Pairs.Count],
-                    sheet.Cells["D2:D" + _witch.Pairs.Count]);
+            chartGraph.Series.Add(sheet.Cells["E2:E" + (_witch.Pairs.Count + 1)],
+                    sheet.Cells["D2:D" + (_witch.Pairs.Count + 1)]);
 
             try {
                 File.WriteAllBytes(filename, package.GetAsByteArray());
