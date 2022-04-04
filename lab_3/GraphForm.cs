@@ -22,10 +22,6 @@ namespace lab_3 {
             GreetingWorker();
         }
 
-        private void GraphForm_Load(object sender, EventArgs e) {
-            
-        }
-
         private double TryConvert(TextBox textBox) {
             double num;
             try {
@@ -49,22 +45,29 @@ namespace lab_3 {
             e.Cancel = result != DialogResult.Yes;
         }
 
-        private void chart1_Click(object sender, EventArgs e) {
-
-        }
-
         private void button_draw_graph_Click(object sender, EventArgs e) {
             if ((CheckNumbers().Count != 4)) return;
             this.chartGraph.Series[0].Points.Clear();
             this.chartGraph.Series[1].Points.Clear();
             double a = double.Parse(textBoxA.Text);
             double step = double.Parse(textBoxStep.Text);
-            
-            Interval inter = new Interval(double.Parse(textBoxLeftBorder.Text),
-                double.Parse(textBoxRightBorder.Text));
+            Interval inter = null;
+            try {
+                inter = new Interval(double.Parse(textBoxLeftBorder.Text),
+                    double.Parse(textBoxRightBorder.Text));
+
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+                return;
+            }
             int leftSide = (int) (inter.LeftBorder / step);
             int rightSide = (int) (inter.RightBorder / step);
-            _witch = new WitchOfAgnesi(a, inter, step);
+            try {
+                _witch = new WitchOfAgnesi(a, inter, step);
+            } catch (FormatException fe) {
+                MessageBox.Show(fe.Message);
+                return;
+            }
             _witch.SetValues();
             
             foreach (var pair in _witch.Pairs) {
@@ -155,7 +158,7 @@ namespace lab_3 {
             dotTable.Columns.Add("X", typeof(double));
             dotTable.Columns.Add("Y", typeof(double));
             foreach (var pair in _witch.Pairs) {
-                dotTable.Rows.Add(Math.Round(pair.Key, 2), Math.Round(pair.Value, 2));
+                dotTable.Rows.Add(pair.Key, pair.Value);
             }
             dataGridView.DataSource = dotTable;
             this.saveOutputDataToolStripMenuItem.Enabled = true;
@@ -176,7 +179,7 @@ namespace lab_3 {
             if (saveFileDialog.ShowDialog() == DialogResult.OK) {
                 using (var streamWriter = new StreamWriter(saveFileDialog.FileName)) {
                     foreach (var pair in _witch.Pairs) {
-                        streamWriter.WriteLine($"{Math.Round(pair.Key, 2)}  -  {Math.Round(pair.Value, 2)}");
+                        streamWriter.WriteLine($"{pair.Key}  -  {pair.Value}");
                     }
                 }
                 MessageBox.Show("The output data was saved!", "Saving!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -214,8 +217,8 @@ namespace lab_3 {
             sheet.Cells["C6"].Value = _witch.Step;
 
             for (int i = 0; i < _witch.Pairs.Count; i++) {
-                sheet.Cells[i + 2, 4].Value = Math.Round(_witch.Pairs[i].Key, 2);
-                sheet.Cells[i + 2, 5].Value = Math.Round(_witch.Pairs[i].Value, 2);
+                sheet.Cells[i + 2, 4].Value = _witch.Pairs[i].Key;
+                sheet.Cells[i + 2, 5].Value = _witch.Pairs[i].Value;
             }
 
             ExcelChart chartGraph = sheet.Drawings.AddChart("Witch of Agnesi", eChartType.Line);

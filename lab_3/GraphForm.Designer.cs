@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace lab_3 {
+﻿namespace lab_3 {
     partial class GraphForm {
         /// <summary>
         /// Required designer variable.
@@ -160,7 +158,6 @@ namespace lab_3 {
             this.chartGraph.Size = new System.Drawing.Size(455, 361);
             this.chartGraph.TabIndex = 1;
             this.chartGraph.Text = "chart1";
-            this.chartGraph.Click += new System.EventHandler(this.chart1_Click);
             // 
             // label_a
             // 
@@ -325,7 +322,6 @@ namespace lab_3 {
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GraphForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GraphForm_FormClosing);
-            this.Load += new System.EventHandler(this.GraphForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartGraph)).EndInit();

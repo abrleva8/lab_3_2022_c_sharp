@@ -21,6 +21,12 @@ namespace lab_3 {
             this.A = a;
             this.GraphInterval = interval;
             this.Step = step;
+            if (!IsGoodA()) {
+                throw new FormatException($"a should be between {minA} and {maxA}");
+            }
+            if (!IsGoodStep()) {
+                throw new FormatException($"step should be between {minStep} and {maxStep}");
+            }
         }
 
         private bool IsGoodA() {
@@ -31,19 +37,11 @@ namespace lab_3 {
             return maxStep > this.Step && this.Step > minStep;
         }
 
-        public bool IsGoodParameters() {
-            return IsGoodA() && IsGoodStep() && GraphInterval.IsGoodData();
-        }
-
         public double Calculate(double x) {
             if (this.A == 0 && x == 0) {
                 return Double.NaN;
             }
             return Math.Pow(this.A, 3) / (this.A * this.A + x * x);
-        }
-
-        public bool IsSpecialSituation() {
-            return A == 0 && GraphInterval.RightBorder > 0 && GraphInterval.LeftBorder < 0;
         }
 
         public void SetValues() {
@@ -52,7 +50,7 @@ namespace lab_3 {
             int rightSide = (int) (GraphInterval.RightBorder / Step);
             for (int i = leftSide; i <= rightSide; i++) {
                 double x = Step * i;
-                KeyValuePair<double, double> pair = new KeyValuePair<double, double>(x, Calculate(x));
+                KeyValuePair<double, double> pair = new KeyValuePair<double, double>(Math.Round(x, 2), Math.Round(Calculate(x), 2));
                 pairs.Add(pair);
             }
             this.Pairs = pairs;

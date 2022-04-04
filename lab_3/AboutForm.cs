@@ -11,10 +11,6 @@ namespace lab_3 {
             InitializeComponent();
         }
 
-        private void AboutForm_Load(object sender, EventArgs e) {
-
-        }
-
         private void checkBoxShowAgain_CheckedChanged(object sender, EventArgs e) {
             IsAgain = !checkBoxShowAgain.Checked;
         }
