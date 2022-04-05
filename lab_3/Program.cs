@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading;
 using System.Windows.Forms;
+
 
 namespace lab_3 {
     internal static class Program {

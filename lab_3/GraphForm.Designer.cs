@@ -1,4 +1,6 @@
-﻿namespace lab_3 {
+﻿using System.Windows.Forms.DataVisualization.Charting;
+
+namespace lab_3 {
     partial class GraphForm {
         /// <summary>
         /// Required designer variable.
@@ -90,7 +92,7 @@
             // readDataFromFileToolStripMenuItem
             // 
             this.readDataFromFileToolStripMenuItem.Name = "readDataFromFileToolStripMenuItem";
-            this.readDataFromFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.readDataFromFileToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.readDataFromFileToolStripMenuItem.Text = "Read data from file";
             this.readDataFromFileToolStripMenuItem.Click += new System.EventHandler(this.readDataFromFileToolStripMenuItem_Click);
             // 
@@ -98,7 +100,7 @@
             // 
             this.saveInputDataToolStripMenuItem.Enabled = false;
             this.saveInputDataToolStripMenuItem.Name = "saveInputDataToolStripMenuItem";
-            this.saveInputDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveInputDataToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.saveInputDataToolStripMenuItem.Text = "Save input data";
             this.saveInputDataToolStripMenuItem.Click += new System.EventHandler(this.saveInputDataToolStripMenuItem_Click);
             // 
@@ -106,7 +108,7 @@
             // 
             this.saveOutputDataToolStripMenuItem.Enabled = false;
             this.saveOutputDataToolStripMenuItem.Name = "saveOutputDataToolStripMenuItem";
-            this.saveOutputDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveOutputDataToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.saveOutputDataToolStripMenuItem.Text = "Save output data";
             this.saveOutputDataToolStripMenuItem.Click += new System.EventHandler(this.saveOutputDataToolStripMenuItem_Click);
             // 
@@ -114,7 +116,7 @@
             // 
             this.saveDataToExcellToolStripMenuItem.Enabled = false;
             this.saveDataToExcellToolStripMenuItem.Name = "saveDataToExcellToolStripMenuItem";
-            this.saveDataToExcellToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveDataToExcellToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.saveDataToExcellToolStripMenuItem.Text = "Save data to excell";
             this.saveDataToExcellToolStripMenuItem.Click += new System.EventHandler(this.saveDataToExcellToolStripMenuItem_Click);
             // 
@@ -144,10 +146,12 @@
             series1.BorderWidth = 4;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Legend = "Legend1";
             series1.Name = "graph";
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
             series2.EmptyPointStyle.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            series2.Legend = "Legend1";
             series2.MarkerBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             series2.MarkerColor = System.Drawing.Color.White;
             series2.MarkerSize = 10;
@@ -293,6 +297,15 @@
             this.dataGridView.ReadOnly = true;
             this.dataGridView.Size = new System.Drawing.Size(243, 361);
             this.dataGridView.TabIndex = 17;
+
+            Axis ax = new Axis();
+            ax.Title = "X";
+            chartGraph.ChartAreas[0].AxisX = ax;
+
+            Axis ay = new Axis();
+            ay.Title = "y";
+            chartGraph.ChartAreas[0].AxisY = ay;
+
             // 
             // GraphForm
             // 

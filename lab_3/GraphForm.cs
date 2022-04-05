@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using OfficeOpenXml;
 using OfficeOpenXml.Drawing.Chart;
@@ -21,6 +22,7 @@ namespace lab_3 {
             InitializeComponent();
             GreetingWorker();
         }
+
 
         private double TryConvert(TextBox textBox) {
             double num;
